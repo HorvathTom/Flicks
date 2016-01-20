@@ -8,6 +8,7 @@
 
 import UIKit
 import AFNetworking
+import MBProgressHUD
 
 class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -17,6 +18,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Display HUD right before next request is made
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -36,6 +40,10 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                     if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                         data, options:[]) as? NSDictionary {
                             NSLog("response: \(responseDictionary)")
+                            
+                            // Hide HUD once network request comes back (must be done on main UI thread)
+                            MBProgressHUD.hideHUDForView(self.view, animated: true)
+                            
                             self.movies = responseDictionary["results"] as? [NSDictionary]
                             self.tableView.reloadData()
                     }
