@@ -84,7 +84,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         return cell
     }
     
-
     /*
     // MARK: - Navigation
 
@@ -94,5 +93,4 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         // Pass the selected object to the new view controller.
     }
     */
-
 }
